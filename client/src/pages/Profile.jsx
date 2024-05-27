@@ -21,12 +21,6 @@ const Profile = () => {
     }
   }, [image])
 
-  useEffect(() => {
-    if (currentUser) {
-      setFormData({ ...formData, profilePicture: currentUser?.profilePicture })
-    }
-  }, [currentUser])
-
   const handleFileUpload = async (image) => {
     const storage = getStorage(app)
     const fileName = new Date().getTime() + image.name
@@ -92,7 +86,7 @@ const Profile = () => {
     	request.resource.size < 2 * 1024 * 1024 &&
       request.resource.contentType.matches('image/.*') */}
         <img
-          src={formData?.profilePicture}
+          src={formData?.profilePicture || currentUser?.profilePicture}
           alt='profile'
           className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
           onClick={() => fileRef.current.click()}
