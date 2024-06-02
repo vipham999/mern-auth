@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   currentUser: null,
   loading: false,
-  error: false
+  error: false,
+  updateState: false
 }
 
 const userSlice = createSlice({
@@ -21,9 +22,35 @@ const userSlice = createSlice({
     signInFailure: (state, action) => {
       state.loading = false
       state.error = action.payload
+    },
+    updateUserStart: (state) => {
+      state.loading = true
+    },
+    updateUserSuccess: (state, action) => {
+      state.loading = false
+      state.updateState = true
+      state.currentUser = action.payload
+    },
+    updateUserFailure: (state, action) => {
+      state.loading = false
+      state.updateState = false
+      state.error = action.payload
+    },
+    resetUpdateState: (state) => {
+      state.loading = false
+      state.updateState = false
+      state.error = false
     }
   }
 })
 
-export const { signInStart, signInSuccess, signInFailure } = userSlice.actions
+export const {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+  resetUpdateState
+} = userSlice.actions
 export default userSlice.reducer

@@ -4,7 +4,6 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 const PrivateRoute = () => {
   const { currentUser } = useSelector((state) => state.user)
-  console.log(currentUser, 'currentUser')
   // Outlet: if currentUser is not null, show children inside route
   return currentUser ? <Outlet /> : <Navigate to='/sign-in' />
 }
